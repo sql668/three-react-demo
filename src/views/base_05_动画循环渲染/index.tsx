@@ -1,0 +1,199 @@
+import { Button } from "antd";
+import { useEffect, useRef, useState } from "react";
+import {
+  AmbientLight,
+  AxesHelper,
+  BoxGeometry,
+  DirectionalLight,
+  DirectionalLightHelper,
+  Mesh,
+  MeshLambertMaterial,
+  PerspectiveCamera,
+  PointLight,
+  Scene,
+  WebGLRenderer,
+} from "three";
+import { OrbitControls } from "three/addons";
+
+export default function Base05() {
+  const ref = useRef<HTMLDivElement>(null);
+
+  // const initThree = () => {
+  //   const width = ref.current?.clientWidth!;
+  //   const height = ref.current?.clientHeight!;
+  //   // 第一步： 创建场景
+  //   const scene = new Scene();
+  //   // 创建物体
+  //   const geometry = new BoxGeometry(60, 60, 60);
+  //   // 材质  MeshLambertMaterial 漫反射材质 受光源影响
+  //   const material = new MeshLambertMaterial({
+  //     color: 0x00ffff,
+  //     //transparent: true, // 开启透明度
+  //     //opacity: 0.5, // 设置透明度
+  //   });
+  //   // 创建网格模型,表示真是的物体
+  //   const mesh = new Mesh(geometry, material);
+  //   // 设置网络模型在三维空间中的位置,默认是坐标原点
+  //   //mesh.position.set(0,10,10)
+  //   // 将物体添加到场景中
+  //   scene.add(mesh);
+
+  //   // 创建一个三维坐标轴
+  //   const axesHelper = new AxesHelper(150);
+  //   scene.add(axesHelper);
+
+  //   // 创建光源  点光源(类似白炽灯)  参数: 光源颜色，光照强度
+  //   const light = new PointLight(0xffffff, 1.0);
+  //   // 衰减(距离光源越远，光照强度越微弱) 默认为2.0  如果想关闭衰减属性可以设置为0.0
+  //   light.decay = 0.0;
+  //   // 光源在x轴上
+  //   light.position.set(120, 100, 100);
+
+  //   scene.add(light);
+
+  //   // 可视化点光源
+  //   const plh = new PointLightHelper(light, 2);
+  //   //scene.add(plh)
+
+  //   // 添加环境光  环境光没有具体的方向，整体改变环境的关照强度
+  //   const ambientLight = new AmbientLight(0xffffff, 0.4)
+  //   scene.add(ambientLight)
+
+  //   // 添加平行光
+  //   const directionLight = new DirectionalLight(0xffffff, 1.0)
+  //   // position和target是用来计算平行光的方向
+  //   directionLight.position.set(50, 100, 60)
+  //   directionLight.target = mesh  // 默认target是坐标原点
+  //   scene.add(directionLight)
+  //   const directionLightHelper = new DirectionalLightHelper(directionLight, 2,0xff0000);
+  //   scene.add(directionLightHelper)
+
+  //   // 第二步： 创建相机
+  //   // 透视投影相机
+  //   const camera = new PerspectiveCamera(50, width / height, 0.1, 3000);
+  //   camera.position.set(200, 200, 200);
+  //   // 相机的朝向
+  //   camera.lookAt(mesh.position);
+
+  //   // 第三步： 渲染器
+  //   const render = new WebGLRenderer();
+  //   render.setSize(width, height);
+  //   render.render(scene, camera);
+
+  //   ref.current?.appendChild(render.domElement);
+
+  //   // 相机控件
+  //   const control = new OrbitControls(camera, render.domElement);
+  //   control.addEventListener("change", () => {
+  //     console.log("相机change");
+  //     render.render(scene, camera);
+  //   });
+  // };
+
+  useEffect(() => {
+    const width = ref.current?.clientWidth!;
+    const height = ref.current?.clientHeight!;
+    // 第一步： 创建场景
+    const scene = new Scene();
+    // 创建物体
+    const geometry = new BoxGeometry(60, 60, 60);
+    // 材质  MeshLambertMaterial 漫反射材质 受光源影响
+    const material = new MeshLambertMaterial({
+      color: 0x00ffff,
+      //transparent: true, // 开启透明度
+      //opacity: 0.5, // 设置透明度
+    });
+    // 创建网格模型,表示真是的物体
+    const mesh = new Mesh(geometry, material);
+    // 设置网络模型在三维空间中的位置,默认是坐标原点
+    //mesh.position.set(0,10,10)
+    // 将物体添加到场景中
+    scene.add(mesh);
+
+    // 创建一个三维坐标轴
+    const axesHelper = new AxesHelper(150);
+    scene.add(axesHelper);
+
+    // 创建光源  点光源(类似白炽灯)  参数: 光源颜色，光照强度
+    const light = new PointLight(0xffffff, 1.0);
+    // 衰减(距离光源越远，光照强度越微弱) 默认为2.0  如果想关闭衰减属性可以设置为0.0
+    light.decay = 0.0;
+    // 光源在x轴上
+    light.position.set(120, 100, 100);
+
+    scene.add(light);
+
+    // 可视化点光源
+    //const plh = new PointLightHelper(light, 2);
+    //scene.add(plh)
+
+    // 添加环境光  环境光没有具体的方向，整体改变环境的关照强度
+    const ambientLight = new AmbientLight(0xffffff, 0.4);
+    scene.add(ambientLight);
+
+    // 添加平行光
+    const directionLight = new DirectionalLight(0xffffff, 1.0);
+    // position和target是用来计算平行光的方向
+    directionLight.position.set(50, 100, 60);
+    directionLight.target = mesh; // 默认target是坐标原点
+    scene.add(directionLight);
+    const directionLightHelper = new DirectionalLightHelper(
+      directionLight,
+      2,
+      0xff0000
+    );
+    scene.add(directionLightHelper);
+
+    // 第二步： 创建相机
+    // 透视投影相机
+    const camera = new PerspectiveCamera(50, width / height, 0.1, 3000);
+    camera.position.set(200, 200, 200);
+    // 相机的朝向
+    camera.lookAt(mesh.position);
+
+    // 第三步： 渲染器
+    const render = new WebGLRenderer();
+    render.setSize(width, height);
+    //render.render(scene, camera);
+
+    ref.current?.appendChild(render.domElement);
+
+    // 相机控件
+    new OrbitControls(camera, render.domElement);
+    // 如果使用了循环渲染动画，这里就不用添加事件了
+    // control.addEventListener("change", () => {
+    //   render.render(scene, camera);
+    // });
+    let animateId:number
+    function animate() { 
+      console.log("3333");
+      
+      mesh.rotateY(0.01)
+      render.render(scene,camera)// 更新canvas画布
+      animateId = requestAnimationFrame(animate);
+    }
+    animate()
+
+    return () => { 
+      // 页面销毁时清理垃圾
+      cancelAnimationFrame(animateId);
+      ref.current?.removeChild(render.domElement);
+      scene.remove(mesh);
+      geometry.dispose();
+      material.dispose();
+      ambientLight.dispose();
+      directionLight.dispose()
+      //control.dispose()
+    }
+
+    
+  }, []);
+  const [num,setNum] = useState(0)
+  return (
+    <>
+      <Button onClick={() => setNum((pre) => pre+1)}>点我+1</Button>
+      { num}
+      <div style={{ height: "600px", width: "800px" }} ref={ref}></div>
+    </>
+  );
+}

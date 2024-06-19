@@ -7,14 +7,17 @@ import requireTransform from "vite-plugin-require-transform";
 //console.log("路径地址2:",path.resolve(__dirname, './src/components/*'));
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react(), requireTransform({ fileRegex: /.ts$|.tsx$|.js$|.jsx/ })],
+  plugins: [
+    react(),
+    requireTransform({ fileRegex: /^(?!.*node_modules).*\.(js|jsx|ts|tsx)$/ }),
+  ],
   server: {
     port: 5174,
   },
   resolve: {
     alias: {
+      "@/views":path.resolve(__dirname, "./src/views"),
       "@c": path.resolve(__dirname, "./src/components"),
-      "@view": path.resolve(__dirname, "./src/views"),
     },
   },
 });

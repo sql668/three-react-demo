@@ -1,11 +1,11 @@
-import { Select } from "antd";
-import { Outlet, useNavigate } from "react-router-dom";
+
+import { Outlet } from "react-router-dom";
 
 export function BaseLayout() {
-  const nav = useNavigate()
-  const handleChange = (value: string) => {
-    nav(value)
-  }
+  //const nav = useNavigate()
+  // const handleChange = (value: string) => {
+  //   nav(value)
+  // }
   return (
     <div style={{height:'100%',display:'flex',flexDirection:'column',padding:20,overflow:'hidden'}}>
       {/* <div>
