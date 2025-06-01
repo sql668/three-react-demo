@@ -63,16 +63,11 @@ export default function Base11() {
     render.setPixelRatio(window.devicePixelRatio) // 设置像素比
     render.setClearColor(0x444444,1)// 设置背景颜色
     render.setSize(width, height);
-    //render.render(scene, camera);
 
     ref.current?.appendChild(render.domElement);
 
     // 相机控件
     const control = new OrbitControls(camera, render.domElement);
-    // 如果使用了循环渲染动画，这里就不用添加事件了
-    // control.addEventListener("change", () => {
-    //   render.render(scene, camera);
-    // });
 
     let animateId: number;
     function animate() {

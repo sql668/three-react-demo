@@ -15,7 +15,7 @@ export default function Base09() {
     const material = new MeshPhongMaterial({
       color: 0xff0000,
       shininess: 100, // 高光部分亮度
-      specular:0x444444,// 高光部分的颜色
+      specular: 0x444444, // 高光部分的颜色
     });
     const mesh = new Mesh(sphereGeometry, material);
     mesh.position.set(0, 0, 0);
@@ -34,7 +34,7 @@ export default function Base09() {
     scene.add(ambientLight);
     const directionLight = new DirectionalLight(0xffffff, 2.0);
     directionLight.position.set(200, 200, 200);
-    directionLight.target = mesh; 
+    directionLight.target = mesh;
     scene.add(directionLight);
 
     // 第二步： 创建相机
@@ -43,7 +43,11 @@ export default function Base09() {
     camera.lookAt(mesh.position); // 相机对准的物体会在画布的中心位置
 
     // 第三步： 渲染器
-    const render = new WebGLRenderer();
+    const render = new WebGLRenderer({
+      antialias: true, // 开启抗锯齿
+    });
+    render.setPixelRatio(window.devicePixelRatio); // 设置像素比
+    render.setClearColor(0x444444, 1); // 设置背景颜色
     render.setSize(width, height);
     render.render(scene, camera);
 

@@ -1,15 +1,10 @@
 
-import { HashRouter } from "react-router-dom";
-import Router from "./router";
-//import './App.css'
-//import { Button } from '@form-created/antd'
 
+import Router from "./router";
 function App() {
   return (
     <>
-      <HashRouter>
-        <Router />
-      </HashRouter>
+      <Router></Router>
     </>
   );
 }
